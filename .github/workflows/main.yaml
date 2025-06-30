@@ -18,10 +18,10 @@ jobs:
         uses: hashicorp/setup-terraform@v2
 
       - name: Initialize terraform
-        run: terrafrom init
+        run: terraform init
 
       - name: Terraform format
         run: |
-          ter fmt
-          ter fmt -recursive ../../variables.tf
-          ter fmt -recursive ../../../modules
+          terraform fmt
+          terraform fmt -recursive ../../variables.tf
+          terraform fmt -recursive ../../../modules
