@@ -19,4 +19,6 @@ variable "assume_role_policy" {
 variable "role_tags" {
   type = map(any)
   description = "role tags"
+  default = {
+  }
 }

@@ -2,10 +2,12 @@
 # --- from %s ---- ./modules/compute/ecs/variables.tf
 variable "cluster_name" {
   type = string
+  default = ""
 }
 
 variable "service_name" {
   type = string
+  default = ""
 }
 
 # --- from %s ---- ./modules/iam/variables.tf
@@ -15,19 +17,19 @@ variable "name" {
   default = ""
 }
 
-variable "assume_role_policy" {
-    description = "Iam role assume policy in object form"
-  type = object({
-    Version = optional(string, "2012-10-17")
-    Statement = list(object({
-        Effect = string
-        Principal = map(any)
-        Action=list(string)
-        Conditon = optional(map(any))
-    })) 
-  })
-  default = {}
-}
+# variable "assume_role_policy" {
+#     description = "Iam role assume policy in object form"
+#   type = object({
+#     Version = optional(string, "2012-10-17")
+#     Statement = list(object({
+#         Effect = string
+#         Principal = map(any)
+#         Action=list(string)
+#         Conditon = optional(map(any))
+#     })) 
+#   })
+#   default = {}
+# }
 
 variable "role_tags" {
   type = map(any)
@@ -70,6 +72,7 @@ variable "ig_name" {
 variable "vpc_availiability_zones" {
   type        = list(string)
   description = "availability zones to be used in vpc"
+  default = [ "" ]
 }
 
 # Route table variables

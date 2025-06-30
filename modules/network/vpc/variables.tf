@@ -33,6 +33,7 @@ variable "ig_name" {
 variable "vpc_availiability_zones" {
   type        = list(string)
   description = "availability zones to be used in vpc"
+  default = [  ]
 }
 
 # Route table variables

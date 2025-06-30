@@ -2,10 +2,12 @@
 # --- from %s ---- ../../../modules/compute/ecs/variables.tf
 variable "cluster_name" {
   type = string
+  default = ""
 }
 
 variable "service_name" {
   type = string
+  default = ""
 }
 
 # --- from %s ---- ../../../modules/iam/variables.tf
@@ -30,6 +32,8 @@ variable "assume_role_policy" {
 variable "role_tags" {
   type = map(any)
   description = "role tags"
+  default = {
+  }
 }
 # --- from %s ---- ../../../modules/network/vpc/variables.tf
 variable "vpc_name" {
@@ -67,6 +71,7 @@ variable "ig_name" {
 variable "vpc_availiability_zones" {
   type        = list(string)
   description = "availability zones to be used in vpc"
+  default = [  ]
 }
 
 # Route table variables
