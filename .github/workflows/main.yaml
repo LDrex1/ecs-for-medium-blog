@@ -9,7 +9,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./main/staging
+        working-directory: ./main/eu-west-2/staging
     steps:
       - name: Chechout code
         uses: actions/checkout@v4
