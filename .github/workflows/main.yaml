@@ -1,0 +1,25 @@
+name: Terrafrom deploy
+on: push
+branches: [main]
+
+jobs:
+  terrafrom:
+    runs-on: ubuntu-latest
+    defaults:
+      shell: bash
+      working-directory: ./main/staging
+    steps:
+      - name: Chechout code
+        uses: actions/checkout@v4
+
+      - name: Set up terraform on runner
+        uses: hashicor/setup-terrafrom@v2
+
+      - name: Initialize terraform
+        run: terrafrom init
+
+      - name: Terraform format
+        run: |
+          ter fmt
+          ter fmt -recursive ../../variables.tf
+          ter fmt -recursive ../../../modules
