@@ -1,5 +1,5 @@
 
-# --- from %s ---- ../../../modules/compute/ecs/variables.tf
+# --- from %s ---- ./modules/compute/ecs/variables.tf
 variable "cluster_name" {
   type = string
 }
@@ -8,30 +8,33 @@ variable "service_name" {
   type = string
 }
 
-# --- from %s ---- ../../../modules/iam/variables.tf
+# --- from %s ---- ./modules/iam/variables.tf
 variable "name" {
   description = "role name"
-  type        = string
+  type = string
+  default = ""
 }
 
 variable "assume_role_policy" {
-  description = "Iam role assume policy in object form"
+    description = "Iam role assume policy in object form"
   type = object({
     Version = optional(string, "2012-10-17")
     Statement = list(object({
-      Effect    = string
-      Principal = map(any)
-      Action    = list(string)
-      Conditon  = optional(map(any))
-    }))
+        Effect = string
+        Principal = map(any)
+        Action=list(string)
+        Conditon = optional(map(any))
+    })) 
   })
+  default = {}
 }
 
 variable "role_tags" {
-  type        = map(any)
+  type = map(any)
   description = "role tags"
+  default = {}
 }
-# --- from %s ---- ../../../modules/network/vpc/variables.tf
+# --- from %s ---- ./modules/network/vpc/variables.tf
 variable "vpc_name" {
   type        = string
   description = "name tag of vpc"
