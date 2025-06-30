@@ -1,6 +1,7 @@
 name: terrafrom validation, intergration and deployment
-on: [pull_request]
-branches: staging
+on:
+  pull_request:
+    branches: [staging]
 env:
   TF_LOG: INFO
   # Credentials for deployment to AWS
@@ -16,8 +17,9 @@ jobs:
         github.ref_name == 'main'    && 'main/eu-west-2/prod'    ||
         ''}}
     defaults:
-      shell: bash
-      working-directory:
+      run:
+        shell: bash
+      #  working-directory:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
