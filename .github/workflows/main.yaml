@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up terraform on runner
-        uses: hashicor/setup-terrafrom@v2
+        uses: hashicorp/setup-terrafrom@v2
 
       - name: Initialize terraform
         run: terrafrom init
