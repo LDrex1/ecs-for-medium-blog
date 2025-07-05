@@ -8,3 +8,17 @@ vpc_tags = {
   enviroment = "staging"
   source     = "terraform"
 }
+
+ecs_task_family_name = "Medium-task"
+ecs_services = [{
+  name        = "fullstack app"
+  task_family = "fullstack-task"
+  containers = [{
+    name  = "database-container-service"
+    image = "mongo:noble"
+    port_mappings = [{
+      containerPort = 2307
+      protocol      = "tcp"
+    }]
+  }]
+}]

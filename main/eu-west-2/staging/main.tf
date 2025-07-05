@@ -19,3 +19,28 @@ module "vpc" {
 provider "aws" {
   region = "eu-west-2"
 }
+
+module "ecs" {
+  source = "../../../modules/compute/ecs"
+
+  ecs_task_family_name   = var.ecs_task_family_name
+  ecs_services           = var.ecs_services
+  default_container_port = 80
+  ecs_loadbalancer_arn   = aws_elb.ecs.arn
+  ecs_vpc_id             = module.vpc.vpc_id
+  ecs_service_subnet_ids = module.vpc.public_subnet_id
+  ecs_lunch_type = "FARGATE"
+
+}
+
+resource "aws_elb" "ecs" {
+  name = "ecs-elb"
+  availability_zones = data.aws_availability_zones.availabile.names
+
+  listener {
+    instance_port = 443
+    instance_protocol = "http"
+    lb_port            = 443
+    lb_protocol        = "https"
+  }
+}
