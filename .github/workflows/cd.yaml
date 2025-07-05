@@ -28,11 +28,13 @@ jobs:
         uses: hashicorp/setup-terraform@v2
 
       - name: Initialize terraform
-        uses: terraform init
+        run: terraform init
 
       - name: Terraform format
         id: fmt
-        run: terraform fmt
+        run: |
+          terraform fmt
+          terraform fmt -recursive ../../../modules/
 
       - name: Terraform validate
         id: validate
@@ -52,7 +54,7 @@ jobs:
 
             <details><summary>Show Plan</summary>
             \\\\n
-            ${{process.env.PLAN}}
+            ${{env.PLAN}}
             \\\\n
             </details>
             *Pushed by @${{github.actor}}, Action: \${{github.event_name}}\*;
