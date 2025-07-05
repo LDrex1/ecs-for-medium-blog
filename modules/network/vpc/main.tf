@@ -16,7 +16,7 @@ locals {
 }
 
 locals {
-  public_subnet_ids =  aws_subnet.amh_public[*].id
+  public_subnet_ids = aws_subnet.amh_public[*].id
 }
 
 
@@ -75,7 +75,7 @@ locals {
 }
 
 resource "aws_subnet" "amh_public" {
-  count = local.len_public_subnets 
+  count = local.len_public_subnets
 
   vpc_id = local.vpc_id
 
@@ -84,18 +84,18 @@ resource "aws_subnet" "amh_public" {
   map_public_ip_on_launch = true
 
   tags = merge(
-  {
-    Name = try(
-      var.public_subnet_names[count.index],
-      format(
-        "amh-%s-%s",
-        var.public_subnet_suffix,
-        element(var.vpc_availiability_zones, count.index)
+    {
+      Name = try(
+        var.public_subnet_names[count.index],
+        format(
+          "amh-%s-%s",
+          var.public_subnet_suffix,
+          element(var.vpc_availiability_zones, count.index)
+        )
       )
-    )
-  },
-  var.vpc_tags
-)
+    },
+    var.vpc_tags
+  )
 
 }
 
@@ -111,7 +111,7 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table_association" "public" {
-  count = local.len_public_subnets 
+  count = local.len_public_subnets
 
   subnet_id      = element(aws_subnet.amh_public[*].id, count.index)
   route_table_id = element(aws_route_table.public[*].id, local.create_public_subnets ? count.index : 0)
@@ -127,7 +127,7 @@ resource "aws_network_acl" "public" {
 }
 
 resource "aws_network_acl_rule" "public_inbound" {
-    count = length(var.public_inbound_acl_rules)
+  count = length(var.public_inbound_acl_rules)
 
   network_acl_id = aws_network_acl.public.id
 
@@ -141,8 +141,8 @@ resource "aws_network_acl_rule" "public_inbound" {
 }
 
 resource "aws_network_acl_rule" "public_outbound" {
-    count = length(var.public_outbound_acl_rules)
-  
+  count = length(var.public_outbound_acl_rules)
+
 
   network_acl_id = aws_network_acl.public.id
 
@@ -165,7 +165,7 @@ locals {
 }
 
 resource "aws_subnet" "amh_private" {
-  count = local.len_private_subnets 
+  count = local.len_private_subnets
 
   vpc_id               = local.vpc_id
   availability_zone    = length(regexall("^[a-z]{2}-", element(var.vpc_availiability_zones, count.index))) > 0 ? element(var.vpc_availiability_zones, count.index) : null
@@ -174,18 +174,18 @@ resource "aws_subnet" "amh_private" {
   cidr_block = element(concat(var.private_subnets, [""]), count.index)
 
   tags = merge(
-  {
-    Name = try(
-      var.private_subnet_names[count.index],
-      format(
-        "amh-%s-%s",
-        var.private_subnet_suffix,
-        element(var.vpc_availiability_zones, count.index)
+    {
+      Name = try(
+        var.private_subnet_names[count.index],
+        format(
+          "amh-%s-%s",
+          var.private_subnet_suffix,
+          element(var.vpc_availiability_zones, count.index)
+        )
       )
-    )
-  },
-  var.vpc_tags
-)
+    },
+    var.vpc_tags
+  )
 
 }
 
@@ -217,7 +217,7 @@ resource "aws_network_acl" "private" {
 }
 
 resource "aws_network_acl_rule" "private_inbound" {
-    count = length(var.private_inbound_acl_rules)
+  count = length(var.private_inbound_acl_rules)
 
   network_acl_id = aws_network_acl.private.id
 
